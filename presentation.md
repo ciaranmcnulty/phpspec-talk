@@ -55,7 +55,7 @@ How PHPUnit, Behat and PhpSpec fit in together
 
 ----
 
-# SpecBDD
+# SpecBDD with PhpSpec
 ## Describing individual classes
 
 ---
@@ -75,10 +75,8 @@ How PHPUnit, Behat and PhpSpec fit in together
 ```
 
 ---
-
-# Animation
  
-composer installation
+![inline](animations/composer-install.gif)
 
 ---
 
@@ -87,13 +85,9 @@ composer installation
 * We **describe an object** using a **Specification**
 * A specification is made up of **Examples** illustrating different scenarios
 
-Start the description: `phpspec describe`
-
 ---
 
-# Animation 
-
-Describing PhpLondon\HelloWorld\Greeter
+![inline](animations/describe-greeter.gif)
 
 ---
 
@@ -120,15 +114,15 @@ class GreeterSpec extends ObjectBehavior
 
 # Verifying object behaviour 
 
-* We compare the real objects with the examples
-
-Run the suite: `phpspec run`
+* Compare the real object's behaviour with the examples
 
 ---
 
-# Animation 
+![inline](animations/generate-greeter-1.gif)
 
-Class generation for Greeter
+---
+
+![inline](animations/generate-greeter-2.gif)
 
 ---
 
@@ -145,8 +139,8 @@ class Greeter
 
 ---
 
-> When this greets, it should return "Hello!"
-
+## An example:
+# When this greets, it should return "Hello!"
 
 ---
 
@@ -166,9 +160,7 @@ class GreeterSpec extends ObjectBehavior
 
 ---
 
-# Animation
-
-Run phpspec and method greet is generated
+![inline](animations/generate-greet-method.gif)
 
 ---
 
@@ -194,9 +186,7 @@ Fake using: `phpspec run --fake`
 
 ---
 
-# Animation 
-
-Return value generation for Greeter with --fake
+![inline](animations/generate-greet-return-constant.gif)
 
 ---
 
@@ -225,13 +215,12 @@ class Greeter
 
 ---
 
-> When this greets Bob, it should return "Hello, Bob!"
+## Another example:
+# When this greets Bob, it should return "Hello, Bob!"
 
 ---
 
-# Animation
-
-Describing Person
+![inline](animations/describe-person.gif)
 
 ---
 
@@ -240,19 +229,21 @@ Describing Person
 ```php
 class PersonSpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith('Ciaran');
+    }
+
     function it_returns_the_name_it_is_created_with()
     {
-        $this->beConstructedWith('Bob');
-        $this->getName()->shouldReturn('Bob');
+        $this->getName()->shouldReturn('Ciaran');
     }
 }
 ```
 
 ---
 
-# Animation
-
-Running suite until Person fails
+![inline](animations/generate-person.gif)
 
 ---
 
@@ -294,9 +285,7 @@ class Person
 ```
 ---
 
-# Animation
-
-Suite passing
+![inline](animations/finished-person.gif)
 
 ---
 
@@ -329,3 +318,25 @@ class GreeterSpec extends ObjectBehavior
 # Animation
 
 Suite failing on greeting Bob
+
+---
+
+#[fit] /src/PhpLondon/HelloWorld/Greeter.php
+
+```php
+
+class Greeter
+{
+    public function greet(Person $person = null)
+    {
+        $greeting = 'Hello';
+        if ($person) {
+            $greeting .= ', ' . $person->getName();
+        }
+        $greeting .= '!';
+
+        return $greeting;
+    }
+}
+```
+
