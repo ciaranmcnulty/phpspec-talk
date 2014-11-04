@@ -4,9 +4,20 @@ namespace PhpLondon\HelloWorld;
 
 class Greeter
 {
+    private $logger;
 
-    public function greet()
+    public function __construct(Logger $logger)
     {
-        return 'Hello!';
+        $this->logger = $logger;
+    }
+
+    public function greet(Person $person = null)
+    {
+        $greeting = 'Hello';
+        if ($person) { $greeting .= ', ' . $person->getName(); }
+
+        $this->logger->log($greeting);
+
+        return $greeting;
     }
 }

@@ -15,4 +15,9 @@ class Person
     {
         return $this->name;
     }
+
+    public function changeNameTo($name)
+    {
+        $this->name = $name;
+    }
 }
