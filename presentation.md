@@ -538,6 +538,8 @@ class PersonSpec extends ObjectBehavior
 }
 ```
 
+^ Existing example
+
 ---
 
 # [fit] /spec/PhpLondon/HelloWorld/PersonSpec.php
@@ -556,6 +558,8 @@ class PersonSpec extends ObjectBehavior
     }
 }
 ```
+
+^ refactor
 
 ---
 
@@ -579,6 +583,8 @@ class PersonSpec extends ObjectBehavior
     }
 }
 ```
+
+^ Other example's still there
 
 ---
 
@@ -928,11 +934,11 @@ class Greeter
 
 # Me
 
-* Senior Trainer at  Inviqa / Sensio Labs UK / Session Digital
-* Contributor to PhpSpec
+* **Senior Trainer** at  Inviqa / Sensio Labs UK / Session Digital
+* Contributor to **PhpSpec**
 
-* @ciaranmcnulty
-* https://github.com/ciaranmcnulty/phplondon-phpspec-talk
+* **@ciaranmcnulty**
+* https://github.com/ciaranmcnulty/**phplondon-phpspec-talk**
 
 ---
 
