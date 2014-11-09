@@ -47,7 +47,7 @@
 # Behaviour Driven Development
 
 * Before you write your code, **describe how it should behave using examples**
-* Then, **Implement the behaviour you you described**
+* Then, **Implement the behaviour you have described**
 
 ![right fit](images/bdd-cycle.png)
 
