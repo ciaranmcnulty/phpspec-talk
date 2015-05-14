@@ -1,9 +1,10 @@
 <?php
 
-namespace PhpLondon\HelloWorld;
+namespace HelloWorld;
 
 class Person
 {
+
     private $name;
 
     public function __construct($name)

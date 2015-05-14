@@ -1,6 +1,8 @@
+autoscale: true
+
 # Driving Development with PhpSpec
 ## with Ciaran McNulty
-### PHPLondon November 2014
+### PhpDay May 2015
 
 ---
 
@@ -47,7 +49,7 @@
 # Behaviour Driven Development
 
 * Before you write your code, **describe how it should behave using examples**
-* Then, **Implement the behaviour you you described**
+* Then, **Implement the behaviour you described**
 
 ![right fit](images/bdd-cycle.png)
 
@@ -116,7 +118,7 @@
 
 # History
 
-## 2.0 stable - The boring bits
+## 2.0.0 to 2.2.0 - Steady improvement
 
 * Me
 * Christophe Coevoet
@@ -132,7 +134,7 @@
 ```json
 {
     "require-dev": {
-        "phpspec/phpspec": "~2.1-RC1"
+        "phpspec/phpspec": "~2.0"
     },
     "config": {
         "bin-dir": "bin"
@@ -148,7 +150,7 @@
 ---
 
 ## A requirement:
-# We need something that says hello to people
+# We need a component that greets people by name
 
 ---
 
@@ -168,11 +170,10 @@ Usage:
 
 ---
 
-#[fit] /spec/PhpLondon/HelloWorld/GreeterSpec.php
-
 ```php
+# spec/HelloWorld/GreeterSpec.php
 
-namespace spec\PhpLondon\HelloWorld;
+namespace spec\HelloWorld;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -181,7 +182,7 @@ class GreeterSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('PhpLondon\HelloWorld\Greeter');
+        $this->shouldHaveType('HelloWorld\Greeter');
     }
 }
 
@@ -206,11 +207,10 @@ Usage:
 
 ---
 
-#[fit] /src/PhpLondon/HelloWorld/Greeter.php
-
 ```php
+# src/HelloWorld/Greeter.php
 
-namespace PhpLondon\HelloWorld;
+namespace HelloWorld;
 
 class Greeter
 {
@@ -218,7 +218,7 @@ class Greeter
 ```
 
 ^ Template is customisable
-^ @author for narciccists
+^ @author for narcissists
 ^ Nothing here yet - describe its behaviour using examples
 
 ---
@@ -231,12 +231,14 @@ class Greeter
 
 ---
 
-#[fit] /spec/PhpLondon/HelloWorld/GreeterSpec.php
 
 ```php
+# spec/HelloWorld/GreeterSpec.php
 
 class GreeterSpec extends ObjectBehavior
 {
+    // ...
+
     function it_greets_by_saying_hello()
     {
         $this->greet()->shouldReturn('Hello');
@@ -261,9 +263,11 @@ class GreeterSpec extends ObjectBehavior
 
 ---
 
-#[fit] /src/PhpLondon/HelloWorld/Greeter.php
+
 
 ```php
+
+#  src/HelloWorld/Greeter.php
 
 class Greeter
 {
@@ -302,9 +306,8 @@ class Greeter
 
 ---
 
-#[fit] /src/PhpLondon/HelloWorld/Greeter.php
-
 ```php
+# src/PhpDay/HelloWorld/Greeter.php
 
 class Greeter
 {
@@ -415,17 +418,157 @@ public function getMatchers()
 
 ---
 
+# Describing Collaboration
+
+---
+
 ## Another example for Greeter:
-# When this greets Bob, it should return "Hello, Bob"
+# When this greets a person called "Bob", it should return "Hello, Bob"
 
 ^ elicit examples through conversation
 ^ When might it not just say hello?
 
 ---
 
-## Wait, what is Bob?
-# Bob is a Person
-## What is a Person?
+```php
+# spec/HelloWorld/GreeterSpec.php
+
+use HelloWorld\Person;
+
+class GreeterSpec extends ObjectBehavior
+{
+    // ...
+
+    function it_greets_a_person_by_name(Person $person)
+    {
+        $person->getName()->willReturn('Bob');
+
+        $this->greet($person)->shouldReturn('Hello, Bob');
+    }
+}
+
+```
+
+---
+
+![inline](animations/generate-person-collab-prompt.gif)
+
+---
+> The Interface Segregation Principle: 
+> No client should be forced to depend on methods it does not use
+-- Robert C Martin
+
+---
+
+![inline](images/interface-segregation.png)
+
+---
+
+```php
+# spec/HelloWorld/GreeterSpec.php
+
+use HelloWorld\Named;
+
+class GreeterSpec extends ObjectBehavior
+{
+    // ...
+
+    function it_greets_named_things_by_name(Named $named)
+    {
+        $named->getName()->willReturn('Bob');
+
+        $this->greet($named)->shouldReturn('Hello, Bob');
+    }
+}
+
+```
+
+---
+
+![inline](animations/generate-named-collab-prompt.gif)
+
+---
+
+![inline](animations/generate-named-collab-method.gif)
+
+---
+
+![inline](animations/generate-named-collab-finish.gif)
+
+---
+
+```php
+# src/HelloWorld/Named.php
+
+namespace HelloWorld;
+
+interface Named
+{
+    public function getName();
+}
+```
+
+---
+
+```php
+# src/HelloWorld/Greeter.php
+
+class Greeter
+{
+    public function greet()
+    {
+        return 'Hello';
+    }
+}
+```
+
+---
+
+#[fit] Finally now we write some code!
+
+---
+
+```php
+# src/HelloWorld/Greeter.php
+
+class Greeter
+{
+    public function greet(Named $named = null)
+    {
+        return 'Hello';
+    }
+}
+```
+
+---
+
+```php
+# src/HelloWorld/Greeter.php
+
+class Greeter
+{
+    public function greet(Named $named = null)
+    {
+        $greeting = 'Hello';
+
+        if ($named) {
+            $greeting .= ', ' . $named->getName();
+        }
+
+        return $greeting;
+    }
+}
+```
+---
+
+![inline](animations/greeter-passing-1.gif)
+
+^ Soothing green
+
+---
+
+## An example for a Person:
+# When you ask a person named "Bob" for their name, they return "Bob"
 
 ---
 
@@ -433,21 +576,16 @@ public function getMatchers()
 
 ---
 
-## An example for a Person:
-# When you ask a person named "Alice" for their name, they return "Alice"
-
----
-
-# [fit] /spec/PhpLondon/HelloWorld/PersonSpec.php
-
 ```php
+# spec/HelloWorld/PersonSpec.php
+
 class PersonSpec extends ObjectBehavior
 {
     function it_returns_the_name_it_is_created_with()
     {
-        $this->beConstructedWith('Alice');
+        $this->beConstructedWith('Bob');
 
-        $this->getName()->shouldReturn('Alice');
+        $this->getName()->shouldReturn('Bob');
     }
 }
 ```
@@ -470,9 +608,9 @@ class PersonSpec extends ObjectBehavior
 
 ---
 
-# [fit] /src/PhpLondon/HelloWorld/Person.php
-
 ```php
+# src/HelloWorld/Person.php
+
 class Person
 {
     public function __construct($argument1)
@@ -489,13 +627,9 @@ class Person
 
 ---
 
-# [fit] So now I write some code!
-
----
-
-# [fit] /src/PhpLondon/HelloWorld/Person.php
-
 ```php
+# src/HelloWorld/Person.php
+
 class Person
 {
     private $name;
@@ -519,67 +653,29 @@ class Person
 ---
 
 ## Another example for a Person:
-# When a person named "Alice" changes their name to "Bob", when you ask their name they return "Bob"
+# When a person named "Bob" changes their name to "Alice", when you ask their name they return "Alice"
 
 ^ Conversation, Questions
 
 ---
 
-# [fit] /spec/PhpLondon/HelloWorld/PersonSpec.php
-
 ```php
-class PersonSpec extends ObjectBehavior
-{
-    function it_returns_the_name_it_is_created_with()
-    {
-        $this->beConstructedWith('Alice');
-        $this->getName()->shouldReturn('Alice');
-    }
-}
-```
+# spec/HelloWorld/PersonSpec.php
 
-^ Existing example
-
----
-
-# [fit] /spec/PhpLondon/HelloWorld/PersonSpec.php
-
-```php
 class PersonSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('Alice');
+        $this->beConstructedWith('Bob');
     }
 
-    function it_returns_the_name_it_is_created_with()
+    // ...
+
+    function it_returns_its_new_name_when_it_has_been_renamed()
     {
+        $this->changeNameTo('Alice');
+
         $this->getName()->shouldReturn('Alice');
-    }
-}
-```
-
-^ refactor
-
----
-
-# [fit] /spec/PhpLondon/HelloWorld/PersonSpec.php
-
-```php
-class PersonSpec extends ObjectBehavior
-{
-    function let()
-    {
-        $this->beConstructedWith('Alice');
-    }
-
-    // …
-
-    function it_returns_its_new_name_when_the_name_has_been_changed()
-    {
-        $this->changeNameTo('Bob');
-
-        $this->getName()->shouldReturn('Bob');
     }
 }
 ```
@@ -596,9 +692,9 @@ class PersonSpec extends ObjectBehavior
 
 ---
 
-# [fit] /src/PhpLondon/HelloWorld/Person.php
-
 ```php
+# src/HelloWorld/Person.php
+
 class Person
 {
     private $name;
@@ -614,9 +710,9 @@ class Person
 
 ---
 
-# [fit] /src/PhpLondon/HelloWorld/Person.php
-
 ```php
+# src/HelloWorld/Person.php
+
 class Person
 {
     private $name;
@@ -636,102 +732,25 @@ class Person
 
 ---
 
-## Another example for Greeter:
-# When this greets Bob, it should return "Hello, Bob"
-
-^ We're starting to talk about the collaboration between objects
-
----
-
 # Describing collaboration - Stubs
 
-**Stubs** are used to describe how we interact with objects we **query**
+**Stubs** are when we describe how we interact with objects we **query**
 
+* `willReturn()`
 * Maybe it is hard to get the real collaborator to return the value we want
 * Maybe using the real collaborator is expensive
 
----
-
-#[fit] /spec/PhpLondon/HelloWorld/GreeterSpec.php
-
-```php
-class GreeterSpec extends ObjectBehavior
-{
-    //…
-
-    function it_greets_people_by_name(Person $bob)
-    {
-        $bob->getName()->willReturn('Bob');
-
-        $this->greet($bob)->shouldReturn('Hello, Bob');
-    }
-}
-```
 
 ---
+# Describing collaboration - Mocking and Spying
 
-![inline](animations/greeter-failing-greeting-bob.gif)
+**Mocks** or **Spies** are when we describe how we interact with objects we **command**
 
-^ Straightforward failure condition
+* `shouldBeCalled()` or `shouldHaveBeenCalled()`
+* Maybe the real command is has side effects
+* Maybe using the real collaborator is expensive
 
----
 
-#[fit] /src/PhpLondon/HelloWorld/Greeter.php
-
-```php
-
-class Greeter
-{
-    public function greet()
-    {
-        return 'Hello';
-    }
-}
-```
-
----
-
-#[fit] /src/PhpLondon/HelloWorld/Greeter.php
-
-```php
-
-class Greeter
-{
-    public function greet()
-    {
-        $greeting = 'Hello';
-
-        return $greeting;
-    }
-}
-```
-
----
-
-#[fit] /src/PhpLondon/HelloWorld/Greeter.php
-
-```php
-
-class Greeter
-{
-    public function greet(Person $person = null)
-    {
-        $greeting = 'Hello';
-
-        if ($person) {
-            $greeting .= ', ' . $person->getName();
-        }
-
-        return $greeting;
-    }
-}
-```
-
----
-
-![inline](animations/greeter-passing-1.gif)
-
-^ Soothing green
 
 ---
 
@@ -740,99 +759,74 @@ class Greeter
 
 ---
 
-## What's a log?
-# Let's not worry yet
-
----
-
-#[fit] /src/PhpLondon/HelloWorld/Logger.php
-
 ```php
-interface Logger
-{
-    public function log($message);
-}
-```
+# spec/HelloWorld/GreeterSpec.php
 
----
-
-# Describing collaboration - Mocks and Spies
-
-**Mocks** or **Spies** are used to describe how we interact with objects we **command**
-
-* Maybe the real command is has side effects
-* Maybe using the real collaborator is expensive
-
-
----
-
-#[fit] /spec/PhpLondon/HelloWorld/GreeterSpec.php
-
-```php
 class GreeterSpec extends ObjectBehavior
 {
-    //…
+    // ...
 
-    function it_greets_people_by_name(Person $bob)
+    function it_greets_named_things_by_name(Named $named)
     {
-        $bob->getName()->willReturn('Bob');
-        $this->greet($bob)->shouldReturn('Hello, Bob');
+        $named->getName()->willReturn('Bob');
+
+        $this->greet($named)->shouldReturn('Hello, Bob');
     }
 }
-
 ```
-
 ---
 
-#[fit] /spec/PhpLondon/HelloWorld/GreeterSpec.php
-
 ```php
+# spec/HelloWorld/GreeterSpec.php
+
 class GreeterSpec extends ObjectBehavior
 {
-    function let(Person $bob)
+    function let(Named $named)
     {
-        $bob->getName()->willReturn('Bob');
+        $named->getName()->willReturn('Bob');
     }
 
-    //…
+    // ...
 
-    function it_greets_people_by_name(Person $bob)
+    function it_greets_named_things_by_name(Named $named)
     {
-        $this->greet($bob)->shouldReturn('Hello, Bob');
+        $this->greet($named)->shouldReturn('Hello, Bob');
     }
 }
-
 ```
 
 ^ Explain how Bob is shared
 
 ---
 
-#[fit] /spec/PhpLondon/HelloWorld/GreeterSpec.php
 
 ```php
+# spec/HelloWorld/GreeterSpec.php
+
 class GreeterSpec extends ObjectBehavior
 {
-    function let(Person $bob, Logger $logger)
+    function let(Named $named, Logger $logger)
     {
         $this->beConstructedWith($logger);
-        $bob->getName()->willReturn('Bob');
+        $named->getName()->willReturn('Bob');
     }
 
     //…
 
-    function it_logs_the_greetings(Person $bob, Logger $logger)
+    function it_logs_the_greetings(Named $named, Logger $logger)
     {
-        $this->greet($bob);
+        $this->greet($named);
         $logger->log('Hello, Bob')->shouldHaveBeenCalled();
     }
 }
-
 ```
 
 ^ Important to remember Logger is an interface here
 ^ shouldHaveBeenCalled indicates a SPY
-^
+
+---
+
+![inline](animations/generate-logger-collab-prompt.gif)
 
 ---
 
@@ -840,13 +834,18 @@ class GreeterSpec extends ObjectBehavior
 
 ---
 
+![inline](animations/generate-logger-method-prompt.gif)
+
+
+---
+
 ![inline](animations/generate-greeter-construct-finish.gif)
 
 ---
 
-#[fit]/src/PhpLondon/HelloWorld/Greeter.php
-
 ```php
+# src/HelloWorld/Greeter.php
+
 class Greeter
 {
     public function __construct($argument1)
@@ -854,10 +853,10 @@ class Greeter
         // TODO: write logic here
     }
 
-    public function greet(Person $person = null)
+    public function greet(Named $named = null)
     {
         $greeting = 'Hello';
-        if ($person) { $greeting .= ', ' . $person->getName(); }
+        if ($named) { $greeting .= ', ' . $named->getName(); }
 
         return $greeting;
     }
@@ -867,9 +866,9 @@ class Greeter
 
 ---
 
-#[fit]/src/PhpLondon/HelloWorld/Greeter.php
-
 ```php
+# src/HelloWorld/Greeter.php
+
 class Greeter
 {
     private $logger;
@@ -879,10 +878,10 @@ class Greeter
         $this->logger = $logger;
     }
 
-    public function greet(Person $person = null)
+    public function greet(Named $named = null)
     {
         $greeting = 'Hello';
-        if ($person) { $greeting .= ', ' . $person->getName(); }
+        if ($named) { $greeting .= ', ' . $named->getName(); }
 
         $this->logger->log($greeting);
 
@@ -907,10 +906,7 @@ class Greeter
 
 ---
 
-# Specs as documentation
-
-![inline](images/uml-final.png)
-![inline fit](animations/passing-pretty.gif)
+![inline](animations/passing-pretty.gif)
 
 ---
 
@@ -922,24 +918,17 @@ class Greeter
 
 ---
 
-# 2.1 release - soon!
-
-* Rerun after failure
-* `--fake` option
-* Named constructors: User::named('Bob')
-* PSR-4 support (+ other autoloaders)
-* + lots of small improvements
-
----
-
 # Me
 
 * **Senior Trainer** at  Inviqa / Sensio Labs UK / Session Digital
-* Contributor to **PhpSpec**
+* Lead Maintainer of **PhpSpec**
 
 * **@ciaranmcnulty**
-* https://github.com/ciaranmcnulty/**phplondon-phpspec-talk**
+
 
 ---
 
 # Questions?
+
+* https://github.com/ciaranmcnulty/**phpspec-talk**
+* https://joind.in/talk/view/14533

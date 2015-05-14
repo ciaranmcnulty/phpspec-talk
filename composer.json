@@ -1,6 +1,6 @@
 {
     "require-dev": {
-        "phpspec/phpspec": "~2.1-RC1"
+        "phpspec/phpspec": "~2.0"
     },
     "config": {
         "bin-dir": "bin"

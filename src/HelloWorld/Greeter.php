@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpLondon\HelloWorld;
+namespace HelloWorld;
 
 class Greeter
 {
@@ -11,10 +11,10 @@ class Greeter
         $this->logger = $logger;
     }
 
-    public function greet(Person $person = null)
+    public function greet(Named $named = null)
     {
         $greeting = 'Hello';
-        if ($person) { $greeting .= ', ' . $person->getName(); }
+        if ($named) { $greeting .= ', ' . $named->getName(); }
 
         $this->logger->log($greeting);
 
