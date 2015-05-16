@@ -116,6 +116,15 @@ autoscale: true
 
 ---
 
+# Design principles
+
+* Optimise for descriptiveness
+* Encourage good design
+* Encourage TDD cycle
+* Do it the PHP way
+
+---
+
 # History
 
 ## 2.0.0 to 2.2.0 - Steady improvement
@@ -737,9 +746,7 @@ class Person
 **Stubs** are when we describe how we interact with objects we **query**
 
 * `willReturn()`
-* Maybe it is hard to get the real collaborator to return the value we want
-* Maybe using the real collaborator is expensive
-
+* Doesn't care when or how many times the method is called
 
 ---
 # Describing collaboration - Mocking and Spying
@@ -747,8 +754,7 @@ class Person
 **Mocks** or **Spies** are when we describe how we interact with objects we **command**
 
 * `shouldBeCalled()` or `shouldHaveBeenCalled()`
-* Maybe the real command is has side effects
-* Maybe using the real collaborator is expensive
+* Verifies that the method is called
 
 
 
@@ -918,17 +924,13 @@ class Greeter
 
 ---
 
-# Me
+# Thank you!
 
-* **Senior Trainer** at  Inviqa / Sensio Labs UK / Session Digital
-* Lead Maintainer of **PhpSpec**
 
 * **@ciaranmcnulty**
-
-
----
-
-# Questions?
+* Lead Maintainer of **PhpSpec**
+* **Senior Trainer** at:
+  Inviqa / Sensio Labs UK / Session Digital / iKOS
 
 * https://github.com/ciaranmcnulty/**phpspec-talk**
-* https://joind.in/talk/view/14533
+* https://joind.in/talk/view/**14533**

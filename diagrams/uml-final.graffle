@@ -57,20 +57,14 @@
 			<key>Head</key>
 			<dict>
 				<key>ID</key>
-				<integer>97</integer>
+				<integer>99</integer>
 			</dict>
 			<key>ID</key>
-			<integer>100</integer>
-			<key>OrthogonalBarAutomatic</key>
-			<true/>
-			<key>OrthogonalBarPoint</key>
-			<string>{0, 0}</string>
-			<key>OrthogonalBarPosition</key>
-			<real>-1</real>
+			<integer>101</integer>
 			<key>Points</key>
 			<array>
-				<string>{169.5, 466}</string>
-				<string>{270.46079759925328, 546.43843297334172}</string>
+				<string>{169.5, 462}</string>
+				<string>{228.50001429669189, 462.44612484607205}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -80,10 +74,6 @@
 					<string>StickArrow</string>
 					<key>Legacy</key>
 					<true/>
-					<key>LineType</key>
-					<integer>2</integer>
-					<key>Pattern</key>
-					<integer>1</integer>
 					<key>TailArrow</key>
 					<string>0</string>
 				</dict>
@@ -96,7 +86,7 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{206.88777446746826, 546.75}, {145.5, 14}}</string>
+					<string>{{229, 443}, {145.50001525878906, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -148,7 +138,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{206.88777446746826, 572.75}, {145.5, 14}}</string>
+					<string>{{229, 469}, {145.50001525878906, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -202,7 +192,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{206.88777446746826, 560.75}, {145.5, 12}}</string>
+					<string>{{229, 457}, {145.50001525878906, 12}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -264,14 +254,14 @@
 			<key>Head</key>
 			<dict>
 				<key>ID</key>
-				<integer>93</integer>
+				<integer>94</integer>
 			</dict>
 			<key>ID</key>
 			<integer>95</integer>
 			<key>Points</key>
 			<array>
-				<string>{96.750002404104123, 650}</string>
-				<string>{96.750002404104123, 587.25}</string>
+				<string>{228.50000031447792, 543.08273191776152}</string>
+				<string>{169.99999896144519, 543.14880450918497}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -290,7 +280,7 @@
 			<key>Tail</key>
 			<dict>
 				<key>ID</key>
-				<integer>83</integer>
+				<integer>85</integer>
 			</dict>
 		</dict>
 		<dict>
@@ -300,7 +290,7 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{24, 546.75}, {145.5, 14}}</string>
+					<string>{{24, 523}, {145.5, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -352,7 +342,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{24, 572.75}, {145.5, 14}}</string>
+					<string>{{24, 549}, {145.5, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -406,7 +396,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{24, 560.75}, {145.5, 12}}</string>
+					<string>{{24, 537}, {145.5, 12}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -472,10 +462,16 @@
 			</dict>
 			<key>ID</key>
 			<integer>90</integer>
+			<key>OrthogonalBarAutomatic</key>
+			<true/>
+			<key>OrthogonalBarPoint</key>
+			<string>{0, 0}</string>
+			<key>OrthogonalBarPosition</key>
+			<real>-1</real>
 			<key>Points</key>
 			<array>
-				<string>{96.750002546383712, 483.5}</string>
-				<string>{96.750002546383712, 546.25}</string>
+				<string>{96.75000660143057, 483.5}</string>
+				<string>{96.750040928869453, 522.49999999999909}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -485,6 +481,8 @@
 					<string>StickArrow</string>
 					<key>Legacy</key>
 					<true/>
+					<key>LineType</key>
+					<integer>2</integer>
 					<key>Pattern</key>
 					<integer>1</integer>
 					<key>TailArrow</key>
@@ -673,7 +671,7 @@
 			<array>
 				<dict>
 					<key>Bounds</key>
-					<string>{{24, 650.5}, {145.5, 14}}</string>
+					<string>{{229, 523}, {145.5, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -725,7 +723,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{24, 676.5}, {145.5, 56}}</string>
+					<string>{{229, 549}, {145.5, 28}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -771,9 +769,7 @@
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720
 
 \f0\fs24 \cf0 + getName()\
-+ rename()\
-+ isAdmin()\
-+ employeeId()}</string>
++ rename()}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -782,7 +778,7 @@
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{24, 664.5}, {145.5, 12}}</string>
+					<string>{{229, 537}, {145.5, 12}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -1842,7 +1838,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2015-05-14 19:51:30 +0000</string>
+	<string>2015-05-16 07:25:20 +0000</string>
 	<key>Modifier</key>
 	<string>Ciaran McNulty</string>
 	<key>NotesVisible</key>
@@ -1937,7 +1933,7 @@
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-124, 29}, {808, 735}}</string>
+		<string>{{-117, 29}, {794, 735}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
