@@ -6,14 +6,6 @@ autoscale: true
 
 ---
 
-# My experiences
-
-*  Unit testing since 2004
-*  Test Driven Development since 2005(ish)
-*  Behaviour Driven Development since 2012
-
----
-
 #[fit] TDD vs BDD
 
 #[fit] \(or are they the same?\)
