@@ -2,7 +2,7 @@ autoscale: true
 
 # Driving Development with PhpSpec
 ## with Ciaran McNulty
-### PhpDay May 2015
+###  Nomad PHP, August 2015
 
 ---
 
@@ -151,7 +151,7 @@ autoscale: true
 ---
 
 ## A requirement:
-# We need a component that greets people by name
+# We need a component that greets people
 
 ---
 
@@ -331,73 +331,38 @@ class Greeter
 
 ---
 
-# Describing values - Equality
+# Matchers
 
 ```php
-$this->greet()->shouldReturn('Hello');
 
+# Equality
+$this->greet()->shouldReturn('Hello');
 $this->sum(3,3)->shouldEqual(6);
 
-$user = $this->findById(1234);
-$user->shouldBe($expectedUser);
-
-$this->numberList()
-     ->shouldBeLike(new ArrayObject([1,2,3]));
-```
----
-
-# Describing values - Type
-
-```php
-
-$this->address()->shouldHaveType('EmailAddress');
-
+# Type
+$this->getEmail()->shouldHaveType('Email');
 $this->getTime()->shouldReturnAnInstanceOf('DateTime');
 
-$user = $this->findById(1234);
-$user->shouldBeAnInstanceOf('User');
-
-$this->shouldImplement('Countable');
-```
-
----
-
-# Describing values - Strings
-
-```php
-$this->getStory()->shouldStartWith('A long time ago');
-$this->getStory()->shouldEndWith('happily ever after');
-
+# Fuzzy value matching
 $this->getSlug()->shouldMatch('/^[0-9a-z]+$/');
-```
-
----
-
-# Describing values - Arrays
-
-```php
 $this->getNames()->shouldContain('Tom');
-
-$this->getNames()->shouldHaveKey(0);
-
-$this->getNames()->shouldHaveCount(1);
 ```
 
 ---
 
-# Describing values - object state
+# Object state
 
 ```php
-// calls isAdmin()
+// isAdmin() should return true
 $this->getUser()->shouldBeAdmin();
 
-// calls hasLoggedInUser()
+// hasLoggedInUser() should return true
 $this->shouldHaveLoggedInUser();
 ```
 
 ---
 
-# Describing custom values
+# Custom matchers
 
 ```php
 
@@ -538,7 +503,14 @@ class Greeter
     {
         return 'Hello';
     }
+
+
+
+
+
+
 }
+
 ```
 
 ---
@@ -614,6 +586,8 @@ class PersonSpec extends ObjectBehavior
 
 class Person
 {
+
+
     public function __construct($argument1)
     {
         // TODO: write logic here
@@ -665,12 +639,40 @@ class Person
 
 class PersonSpec extends ObjectBehavior
 {
+
+    function it_returns_the_name_it_is_created_with()
+    {
+        $this->beConstructedWith('Bob');
+
+        $this->getName()->shouldReturn('Bob');
+    }
+
+    function it_returns_its_new_name_when_it_has_been_renamed()
+    {
+        $this->beConstructedWith('Bob');
+
+        $this->changeNameTo('Alice');
+
+        $this->getName()->shouldReturn('Alice');
+    }
+}
+```
+---
+
+```php
+# spec/HelloWorld/PersonSpec.php
+
+class PersonSpec extends ObjectBehavior
+{
     function let()
     {
         $this->beConstructedWith('Bob');
     }
 
-    // ...
+    function it_returns_the_name_it_is_created_with()
+    {
+        $this->getName()->shouldReturn('Bob');
+    }
 
     function it_returns_its_new_name_when_it_has_been_renamed()
     {
@@ -680,8 +682,6 @@ class PersonSpec extends ObjectBehavior
     }
 }
 ```
-
-^ Other example's still there
 
 ---
 
@@ -770,6 +770,11 @@ class GreeterSpec extends ObjectBehavior
 
         $this->greet($named)->shouldReturn('Hello, Bob');
     }
+
+
+
+
+
 }
 ```
 ---
@@ -790,6 +795,8 @@ class GreeterSpec extends ObjectBehavior
     {
         $this->greet($named)->shouldReturn('Hello, Bob');
     }
+
+
 }
 ```
 
@@ -809,7 +816,7 @@ class GreeterSpec extends ObjectBehavior
         $named->getName()->willReturn('Bob');
     }
 
-    //…
+    // ...
 
     function it_logs_the_greetings(Named $named, Logger $logger)
     {
@@ -846,6 +853,8 @@ class GreeterSpec extends ObjectBehavior
 
 class Greeter
 {
+
+
     public function __construct($argument1)
     {
         // TODO: write logic here
@@ -855,6 +864,8 @@ class Greeter
     {
         $greeting = 'Hello';
         if ($named) { $greeting .= ', ' . $named->getName(); }
+
+
 
         return $greeting;
     }
@@ -918,11 +929,10 @@ class Greeter
 
 # Thank you!
 
-
 * **@ciaranmcnulty**
 * Lead Maintainer of **PhpSpec**
 * **Senior Trainer** at:
   Inviqa / Sensio Labs UK / Session Digital / iKOS
 
-* https://github.com/ciaranmcnulty/**phpspec-talk**
-* https://joind.in/talk/view/**14533**
+
+* https://joind.in/talk/view/**15001**
